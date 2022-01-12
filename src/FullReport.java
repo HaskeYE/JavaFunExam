@@ -46,7 +46,7 @@ public class FullReport {
                         neededHours = Integer.parseInt(program[2]);
                         //Appending general info about the course
                         oneReport.append(System.lineSeparator()).append("  Course: ").append(program[1])
-                                .append(" - duration:").append(program[2]).append(" hours")
+                                .append(" - duration: ").append(program[2]).append(" hours")
                                 .append(System.lineSeparator());
                         //Appending start date
                         oneReport.append("      Date of start:").append(dateForEach).append(System.lineSeparator());
