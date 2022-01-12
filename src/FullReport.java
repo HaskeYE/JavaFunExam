@@ -1,6 +1,5 @@
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -28,7 +27,7 @@ public class FullReport {
                 oneReport.append(System.lineSeparator()).append(firstLines.trim().split(": ")[1]);
                 firstLines = scan.nextLine();
                 oneReport.append("(").append(firstLines.trim().split(": ")[1])
-                        .append("). Worktime: from 10:00 till 18:00");
+                        .append("). Work time: from 10:00 till 18:00");
                 firstLines = scan.nextLine();
                 String dateOfStart = firstLines.trim().split(": ")[1];
 
@@ -38,13 +37,14 @@ public class FullReport {
                 scan.nextLine();
                 String nextLine = null;
                 int neededHours;
-                String dateForEach = dateOfStart;
+                String dateForEach = dateOfStart + " - 10:00";
                 //Getting time for each course in new cycle
                 while (!Objects.equals(nextLine, "") && scan.hasNextLine()) {
                     nextLine = scan.nextLine();
                     if (!Objects.equals(nextLine, "")) {
                         String[] program = nextLine.trim().split("\\. +");
                         try {
+                            //Hours needed to complete course which is now processing in cycle
                             neededHours = Integer.parseInt(program[2]);
                         } catch (IllegalArgumentException e) {
                             throw new IllegalArgumentException(
@@ -57,8 +57,14 @@ public class FullReport {
                                 .append(System.lineSeparator());
                         //Appending start date
                         oneReport.append("      Date of start:").append(dateForEach).append(System.lineSeparator());
-                        //Appending finish date
-                        oneReport.append("      Date of finish:").append("smth").append(System.lineSeparator());
+                        //Appending finish date with hour added by my subfunction hourAdder
+                        try {
+                            dateForEach = HourAdder.hourAdder(dateForEach, neededHours);
+                            oneReport.append("      Date of finish:").
+                                    append(dateForEach).append(System.lineSeparator());
+                        } catch (IllegalArgumentException e) {
+                            throw new IllegalArgumentException("Error in processing date of start in input file");
+                        }
 
                         //Adding how much time has passed / remains until completion for each course
                         if (neededHours <= givenHours) {
@@ -88,10 +94,5 @@ public class FullReport {
             System.out.println(e.getMessage());
             throw e;
         }
-    }
-    private String hourAdder(String startDate,int hoursToAdd) throws IllegalArgumentException{
-        LocalDate endDate = DateStringToCommon.DateStringToCommon(startDate);
-
-        return String.format("%d %s %", endDate.getDayOfMonth(), /*dayOfWeek,*/ endDate.getYear());
     }
 }
