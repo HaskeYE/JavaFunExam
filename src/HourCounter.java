@@ -6,8 +6,7 @@ class HourCounter {
      static int HoursBetween(String startDate, String finishDate) throws IllegalArgumentException {
         int out = 0;
         try {
-            //Проверки входных данных даты начала и последующее разбиение этих данных на приемлимые
-            // для восприятния подфункциями строки
+            //Granting correctness of input date of start and putting into shape for going through program
             if (startDate.trim().split(" - ").length != 2)
                 throw new IllegalArgumentException("Wrong date format in input file");
             String dateOfStart = startDate.trim().split(" - ")[0];
@@ -15,8 +14,7 @@ class HourCounter {
             LocalDate start = DateStringToCommon.DateStringToCommon(dateOfStart).
                     plusDays(HourCounter.plusToRoundUp(weekDayOfStart));
 
-            //Проверки входных данных даты окончания и последующее разбиение этих данных на приемлимые
-            // для восприятния подфункциями строки
+            //Granting correctness of input date of finish and putting into shape for going through program
             if (finishDate.trim().split(" - ").length != 3)
                 throw new IllegalArgumentException("Wrong date format in input file");
             String dateOfFinish = finishDate.trim().split(" - ")[0].trim();
@@ -33,7 +31,7 @@ class HourCounter {
                     throw new IllegalArgumentException("Illegal input time format");
                 }
             }
-            //Вычисляем разницу в днях между нашими датами, учитывая дни недели как основу
+            //counting difference between our dates relying on day of week
             LocalDate finish = DateStringToCommon.DateStringToCommon(dateOfFinish).
                     minusDays(7 - HourCounter.plusToRoundUp(weekDayOfFinish));
             out = (int) ChronoUnit.DAYS.between(start, finish);
@@ -44,8 +42,7 @@ class HourCounter {
                         (7 - HourCounter.plusToRoundUp(weekDayOfFinish));
             }
 
-            // Переводим дни в часы и прибавляем часы последнего дня запрошенного периода,
-            // которые не учитывались в вычислениях выше
+            //Days to hours plus hours of last day of work
              out = out * 8 + (Integer.parseInt(timeOfFinish.trim().split(":")[0]) - 10);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -54,6 +51,7 @@ class HourCounter {
         return out;
     }
 
+    //function to round up to the start of the next week
     private static int plusToRoundUp(String weekDayOfStart) throws IllegalArgumentException {
         int out = 0;
         switch (weekDayOfStart) {

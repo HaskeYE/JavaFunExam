@@ -1,12 +1,9 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
-//беру даты - потом считаю промежуток в днях между ними - добиваю до начала недели, вычитаю из дней это кол-во
-// и добиваю финальную дату до начала недели - беру разницу дат в днях, делю на 7, умножаю на пять
-// прибавляю первые дни и последние - получаю кол-во дней от и до - умножаю на 8, после чего
-// прибавляю к этому разницу финального времени и 10 00 - профит
+
 
 class DateStringToCommon {
-
+    //String input of Date to common for program type of data
     public static LocalDate DateStringToCommon(String str) throws IllegalArgumentException{
         LocalDate date;
         try {
