@@ -1,5 +1,6 @@
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -43,7 +44,13 @@ public class FullReport {
                     nextLine = scan.nextLine();
                     if (!Objects.equals(nextLine, "")) {
                         String[] program = nextLine.trim().split("\\. +");
-                        neededHours = Integer.parseInt(program[2]);
+                        try {
+                            neededHours = Integer.parseInt(program[2]);
+                        } catch (IllegalArgumentException e) {
+                            throw new IllegalArgumentException(
+                                    String.format("Illegal argument in course %d duration in input file",
+                                            Integer.parseInt(program[1])));
+                        }
                         //Appending general info about the course
                         oneReport.append(System.lineSeparator()).append("  Course: ").append(program[1])
                                 .append(" - duration: ").append(program[2]).append(" hours")
@@ -81,5 +88,10 @@ public class FullReport {
             System.out.println(e.getMessage());
             throw e;
         }
+    }
+    private String hourAdder(String startDate,int hoursToAdd) throws IllegalArgumentException{
+        LocalDate endDate = DateStringToCommon.DateStringToCommon(startDate);
+
+        return String.format("%d %s %", endDate.getDayOfMonth(), /*dayOfWeek,*/ endDate.getYear());
     }
 }

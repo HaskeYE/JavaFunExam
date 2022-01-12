@@ -7,7 +7,7 @@ public class Main {
     //Need hoursToWorkdays - turning estimated hours to date which needs to be plusDay to our date
     //Test data ahead
     //18 January 2021 - Tuesday - 15:00 resources/file1.txt
-    //2 July 2021 - Friday - 16:00
+    //2 July 2020 - Friday - 16:00
     public static void main(String[] args) {
         //Some dialogues to interact with user
         System.out.println("""

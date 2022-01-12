@@ -11,6 +11,8 @@ class HourCounter {
                 throw new IllegalArgumentException("Wrong date format in input file");
             String dateOfStart = startDate.trim().split(" - ")[0];
             String weekDayOfStart = startDate.trim().split(" - ")[1];
+            //Rounding start day to the start of the next week to achieve ability to count days till
+            //start of the final week using methods of LocalDate and then separate weekends from this value easily
             LocalDate start = DateStringToCommon.DateStringToCommon(dateOfStart).
                     plusDays(HourCounter.plusToRoundUp(weekDayOfStart));
 
