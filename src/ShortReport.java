@@ -24,7 +24,7 @@ public class ShortReport {
                 //This block will parse data from file into stringBuilder which would be returned
                 String firstLines = scan.nextLine();
                 StringBuilder oneReport = new StringBuilder();
-                oneReport.append("\n").append(firstLines.trim().split(": ")[1]);
+                oneReport.append(System.lineSeparator()).append(firstLines.trim().split(": ")[1]);
                 firstLines = scan.nextLine();
                 oneReport.append("(").append(firstLines.trim().split(": ")[1]).append(") - ");
                 firstLines = scan.nextLine();
@@ -40,8 +40,7 @@ public class ShortReport {
                 while (!Objects.equals(nextLine, "") && scan.hasNextLine()) {
                     nextLine = scan.nextLine();
                     if (!Objects.equals(nextLine, "")) {
-                        String[] test = nextLine.trim().split("\\. +");
-                        neededHours += Integer.parseInt(test[2]);
+                        neededHours += Integer.parseInt(nextLine.trim().split("\\. +")[2]);
                     }
                 }
                 //Ending our output string in StringBuilder

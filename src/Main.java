@@ -4,8 +4,10 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
+    //Need hoursToWorkdays - turning estimated hours to date which needs to be plusDay to our date
     //Test data ahead
     //18 January 2021 - Tuesday - 15:00 resources/file1.txt
+    //2 July 2021 - Friday - 16:00
     public static void main(String[] args) {
         //Some dialogues to interact with user
         System.out.println("""
@@ -18,17 +20,12 @@ public class Main {
         try {
             switch (type) {
                 case "s" -> ShortReport.generateShortReport();
-                case "f" -> generateFullReport();
+                case "f" -> FullReport.generateFullReport();
                 default -> System.out.println("There is typo in report type definition - please rerun program");
             }
         } catch (IOException e) {
             System.out.println("Exception occurred - stopping work");
         }
         System.out.println("\nProgram finished its work\nThank you for using it");
-    }
-
-
-    static void generateFullReport() throws IllegalArgumentException {
-
     }
 }
