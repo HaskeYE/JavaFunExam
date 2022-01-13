@@ -1,5 +1,6 @@
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -21,48 +22,55 @@ public class ShortReport {
             System.out.println(String.format("Short(Generating report date: %s ):", dayOfReport));
             Scanner scan = new Scanner(reader);
 
+            ArrayList<StudentData> studentsListParsed = new ArrayList<>();
+            /*This whole while block provides building list of studentData which is
+            class with student data parsed into data class*/
             while (scan.hasNextLine()) {
-                //This block will parse data from file into stringBuilder which would be returned
-                String firstLines = scan.nextLine();
-                StringBuilder oneCourseReport = new StringBuilder();
-                oneCourseReport.append(System.lineSeparator()).append(firstLines.trim().split(": ")[1]);
-                firstLines = scan.nextLine();
-                oneCourseReport.append("(").append(firstLines.trim().split(": ")[1]).append(") - ");
-                firstLines = scan.nextLine();
-                String dateOfStart = firstLines.trim().split(": ")[1];
-
-                //Counting hours between our start and finish dates
-                int givenHours = HourCounter.HoursBetween(dateOfStart, dayOfReport);
-                scan.nextLine();
-                scan.nextLine();
                 String nextLine = null;
-                int neededHours = 0;
-                //Getting time for each course in new cycle
+                ArrayList<String> parseToStudentData = new ArrayList<>();
+                int i = 0;
                 while (!Objects.equals(nextLine, "") && scan.hasNextLine()) {
                     nextLine = scan.nextLine();
-                    if (!Objects.equals(nextLine, "")) {
-                        neededHours += Integer.parseInt(nextLine.trim().split("\\. +")[2]);
-                    }
+                    parseToStudentData.add(nextLine);
                 }
-                //Ending our output string in StringBuilder
+                studentsListParsed.add(new StudentData(parseToStudentData));
+            }
+
+            //Writing to terminal report for each student
+            for (StudentData studentData : studentsListParsed) {
+                //Those lines would write name of student and his curriculum to stringBuilder
+                StringBuilder oneStudentReport = new StringBuilder();
+                oneStudentReport.append(System.lineSeparator()).append(studentData.name);
+                oneStudentReport.append("(").append(studentData.curriculum).append(") - ");
+
+                /*There are counting to realize are courses finished or not
+                givenHours are hours between date of learning start and inputted from terminal date */
+                int givenHours = HourCounter.HoursBetween(studentData.dateOfLearningStart, dayOfReport);
+                int neededHours = 0;
+                for (Course course : studentData.courses) {
+                    neededHours += course.duration;
+                }
+
+                /*Ending our output string in StringBuilder by adding how many hours have
+                left before courses are finished/ have passed after finishing all courses*/
                 if (neededHours <= givenHours) {
-                    oneCourseReport.append("Training completed. ");
+                    oneStudentReport.append("Training completed. ");
                     int difference = givenHours - neededHours;
                     int difDays = difference / 8;
                     int difHours = difference % 8;
-                    if (difDays != 0) oneCourseReport.append(difDays).append(" working days ").
+                    if (difDays != 0) oneStudentReport.append(difDays).append(" working days ").
                             append(difHours).append(" hours have passed since the end.");
-                    else oneCourseReport.append(difHours).append(" hours have passed since the end.");
+                    else oneStudentReport.append(difHours).append(" hours have passed since the end.");
                 } else {
-                    oneCourseReport.append("Training is not finished. ");
+                    oneStudentReport.append("Training is not finished. ");
                     int difference = neededHours - givenHours;
                     int difDays = difference / 8;
                     int difHours = difference % 8;
-                    if (difDays != 0) oneCourseReport.append(difDays).append(" working days ").
+                    if (difDays != 0) oneStudentReport.append(difDays).append(" working days ").
                             append(difHours).append(" hours are left until the end.");
-                    else oneCourseReport.append(difHours).append(" are left until the end.");
+                    else oneStudentReport.append(difHours).append(" are left until the end.");
                 }
-                System.out.println(oneCourseReport);
+                System.out.println(oneStudentReport);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
