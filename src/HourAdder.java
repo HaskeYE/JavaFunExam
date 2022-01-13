@@ -16,10 +16,11 @@ public class HourAdder {
                     }
                 }
             }
-            if (hoursToAdd != 0) {
-                //If hours added to the last day's time are out of working day then
-                //overHours must be thrown to the next day
-                int hoursOfEnd = hoursToAdd + Integer.parseInt(startDateSplit[2].split(":")[0]);
+            if (leftHours != 0) {
+                /*If hours added to the last day's time are out of working day then
+                overHours must be thrown to the next day*/
+                int hoursOfEnd = leftHours + Integer.parseInt(startDateSplit[2].split(":")[0]);
+
                 if (hoursOfEnd > 18) {
                     nowIs = nowIs.plusDays(1);
                     startDateSplit[2] = (10 + (hoursOfEnd - 18)) + ":00";
