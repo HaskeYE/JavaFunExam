@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class StudentData {
+public class StudentProfile {
     String name;
     String curriculum;
     String dateOfLearningStart;
     ArrayList<Course> courses = new ArrayList<>();
 
-    public StudentData(ArrayList<String> data) throws IllegalArgumentException {
+    public StudentProfile(ArrayList<String> data) throws IllegalArgumentException {
         //Parsing values from strings into corresponding fields
         try {
             String[] probablyName = data.get(0).split(": ");

@@ -22,7 +22,7 @@ public class FullReport {
             Scanner scan = new Scanner(reader);
 
 
-            ArrayList<StudentData> studentsListParsed = new ArrayList<>();
+            ArrayList<StudentProfile> studentsListParsed = new ArrayList<>();
             /*This whole while block provides building list of studentData which is
             class with student data parsed into data class*/
             while (scan.hasNextLine()) {
@@ -33,11 +33,11 @@ public class FullReport {
                     nextLine = scan.nextLine();
                     parseToStudentData.add(nextLine);
                 }
-                studentsListParsed.add(new StudentData(parseToStudentData));
+                studentsListParsed.add(new StudentProfile(parseToStudentData));
             }
 
             //Writing to terminal report for each student
-            for (StudentData studentData : studentsListParsed) {
+            for (StudentProfile studentData : studentsListParsed) {
                 //Those lines would write name of student and his curriculum to stringBuilder
                 StringBuilder oneStudentReport = new StringBuilder();
                 oneStudentReport.append(System.lineSeparator()).append(studentData.name);
@@ -50,6 +50,7 @@ public class FullReport {
                 int givenHours = HourCounter.HoursBetween(studentData.dateOfLearningStart, dayOfReport);
                 int neededHours = 0;
 
+                //There are no time in input file in time of start, so i declared start of the working day
                 String dateForEach = studentData.dateOfLearningStart + " - 10:00";
                 /*Ending our output string in StringBuilder by adding how many hours have
                 left before courses are finished/ have passed after finishing all courses*/

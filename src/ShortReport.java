@@ -22,7 +22,7 @@ public class ShortReport {
             System.out.println(String.format("Short(Generating report date: %s ):", dayOfReport));
             Scanner scan = new Scanner(reader);
 
-            ArrayList<StudentData> studentsListParsed = new ArrayList<>();
+            ArrayList<StudentProfile> studentsListParsed = new ArrayList<>();
             /*This whole while block provides building list of studentData which is
             class with student data parsed into data class*/
             while (scan.hasNextLine()) {
@@ -33,11 +33,11 @@ public class ShortReport {
                     nextLine = scan.nextLine();
                     parseToStudentData.add(nextLine);
                 }
-                studentsListParsed.add(new StudentData(parseToStudentData));
+                studentsListParsed.add(new StudentProfile(parseToStudentData));
             }
 
             //Writing to terminal report for each student
-            for (StudentData studentData : studentsListParsed) {
+            for (StudentProfile studentData : studentsListParsed) {
                 //Those lines would write name of student and his curriculum to stringBuilder
                 StringBuilder oneStudentReport = new StringBuilder();
                 oneStudentReport.append(System.lineSeparator()).append(studentData.name);
