@@ -13,68 +13,56 @@ public class ShortReport {
         String pathToData = scanner.nextLine();
 
         //Gaining date of estimate finish from InputStream
-        try (FileReader reader = new FileReader(pathToData)) {
-            System.out.println("""
-                    For which date you want to see results?
-                    Please input in format:
-                    d Month year - Day of week - Time in format hh:mm""");
-            String dayOfReport = scanner.nextLine();
-            System.out.println(String.format("Short(Generating report date: %s ):", dayOfReport));
-            Scanner scan = new Scanner(reader);
+        System.out.println("""
+                For which date you want to see results?
+                Please input in format:
+                d Month year - Day of week - Time in format hh:mm""");
+        String dayOfReport = scanner.nextLine();
+        System.out.printf("Short(Generating report date: %s ):%n", dayOfReport);
 
-            ArrayList<StudentProfile> studentsListParsed = new ArrayList<>();
-            /*This whole while block provides building list of studentData which is
-            class with student data parsed into data class*/
-            while (scan.hasNextLine()) {
-                String nextLine = null;
-                ArrayList<String> parseToStudentData = new ArrayList<>();
-                int i = 0;
-                while (!Objects.equals(nextLine, "") && scan.hasNextLine()) {
-                    nextLine = scan.nextLine();
-                    parseToStudentData.add(nextLine);
-                }
-                studentsListParsed.add(new StudentProfile(parseToStudentData));
-            }
+        //Parsing in the way we have input from file
+        ArrayList<StudentProfile> studentsListParsed = new ArrayList<>();
+        ArrayList<RawStudentProfile> rawStudentProfileData = ParserForProfile.parseFromFile(pathToData);
+        for (RawStudentProfile raw : rawStudentProfileData) {
+            studentsListParsed.add(new StudentProfile(raw));
+        }
 
-            //Writing to terminal report for each student
-            for (StudentProfile studentData : studentsListParsed) {
-                //Those lines would write name of student and his curriculum to stringBuilder
-                StringBuilder oneStudentReport = new StringBuilder();
-                oneStudentReport.append(System.lineSeparator()).append(studentData.name);
-                oneStudentReport.append("(").append(studentData.curriculum).append(") - ");
+        //Writing to terminal report for each student
+        for (StudentProfile studentData : studentsListParsed) {
+            //Those lines would write name of student and his curriculum to stringBuilder
+            StringBuilder oneStudentReport = new StringBuilder();
+            oneStudentReport.append(System.lineSeparator()).append(studentData.name);
+            oneStudentReport.append("(").append(studentData.curriculum).append(") - ");
 
                 /*There are counting to realize are courses finished or not
                 givenHours are hours between date of learning start and inputted from terminal date */
-                int givenHours = HourCounter.HoursBetween(studentData.dateOfLearningStart, dayOfReport);
-                int neededHours = 0;
-                for (Course course : studentData.courses) {
-                    neededHours += course.duration;
-                }
+            int givenHours = HourCounter.HoursBetween(studentData.dateOfLearningStart, dayOfReport);
+            int neededHours = 0;
+            for (Course course : studentData.courses) {
+                neededHours += course.duration;
+            }
 
                 /*Ending our output string in StringBuilder by adding how many hours have
                 left before courses are finished/ have passed after finishing all courses*/
-                if (neededHours <= givenHours) {
-                    oneStudentReport.append("Training completed. ");
-                    int difference = givenHours - neededHours;
-                    int difDays = difference / 8;
-                    int difHours = difference % 8;
-                    if (difDays != 0) oneStudentReport.append(difDays).append(" working days ").
-                            append(difHours).append(" hours have passed since the end.");
-                    else oneStudentReport.append(difHours).append(" hours have passed since the end.");
-                } else {
-                    oneStudentReport.append("Training is not finished. ");
-                    int difference = neededHours - givenHours;
-                    int difDays = difference / 8;
-                    int difHours = difference % 8;
-                    if (difDays != 0) oneStudentReport.append(difDays).append(" working days ").
-                            append(difHours).append(" hours are left until the end.");
-                    else oneStudentReport.append(difHours).append(" are left until the end.");
-                }
-                System.out.println(oneStudentReport);
+            if (neededHours <= givenHours) {
+                oneStudentReport.append("Training completed. ");
+                int difference = givenHours - neededHours;
+                int difDays = difference / 8;
+                int difHours = difference % 8;
+                if (difDays != 0) oneStudentReport.append(difDays).append(" working days ").
+                        append(difHours).append(" hours have passed since the end.");
+                else oneStudentReport.append(difHours).append(" hours have passed since the end.");
+            } else {
+                oneStudentReport.append("Training is not finished. ");
+                int difference = neededHours - givenHours;
+                int difDays = difference / 8;
+                int difHours = difference % 8;
+                if (difDays != 0) oneStudentReport.append(difDays).append(" working days ").
+                        append(difHours).append(" hours are left until the end.");
+                else oneStudentReport.append(difHours).append(" are left until the end.");
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            throw e;
+            System.out.println(oneStudentReport);
         }
+
     }
 }
