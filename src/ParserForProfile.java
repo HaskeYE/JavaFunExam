@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class ParserForProfile {
-    public static ArrayList<RawStudentProfile> parseFromFile(String pathToData) throws IOException {
-        ArrayList<RawStudentProfile> studentsListParsed = new ArrayList<>();
+    public static ArrayList<StudentProfile> parseFromFile(String pathToData) throws IOException {
+        ArrayList<StudentProfile> studentsListParsed = new ArrayList<>();
         try (FileReader reader = new FileReader(pathToData)) {
             Scanner scan = new Scanner(reader);
             /*This whole while block provides building list of studentData which is
@@ -22,7 +22,7 @@ public class ParserForProfile {
                     parseToStudentData.add(nextLine);
                 }
                 //Adding raw profile which will be delegated to the studentProfile constructor
-                studentsListParsed.add(new RawStudentProfile(parseToStudentData));
+                studentsListParsed.add(new StudentProfile(parseToStudentData));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());

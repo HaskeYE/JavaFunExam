@@ -21,11 +21,8 @@ public class ShortReport {
         System.out.printf("Short(Generating report date: %s ):%n", dayOfReport);
 
         //Parsing in the way we have input from file
-        ArrayList<StudentProfile> studentsListParsed = new ArrayList<>();
-        ArrayList<RawStudentProfile> rawStudentProfileData = ParserForProfile.parseFromFile(pathToData);
-        for (RawStudentProfile raw : rawStudentProfileData) {
-            studentsListParsed.add(new StudentProfile(raw));
-        }
+        ArrayList<StudentProfile> studentsListParsed = ParserForProfile.parseFromFile(pathToData);
+
 
         //Writing to terminal report for each student
         for (StudentProfile studentData : studentsListParsed) {

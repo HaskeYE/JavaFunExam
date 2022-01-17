@@ -7,9 +7,9 @@ public class StudentProfile {
     String dateOfLearningStart;
     ArrayList<Course> courses = new ArrayList<>();
 
-    public StudentProfile(RawStudentProfile dataRaw) throws IllegalArgumentException {
+    public StudentProfile(ArrayList<String> data) throws IllegalArgumentException {
         //Parsing values from strings into corresponding fields
-        ArrayList<String> data = dataRaw.stringsForUseInStudentProfile;
+
         try {
             String[] probablyName = data.get(0).split(": ");
             if (Objects.equals(probablyName[0], "STUDENT"))
