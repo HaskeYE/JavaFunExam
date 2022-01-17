@@ -1,4 +1,8 @@
 public class Reporter {
-    /*will be acceptable if reporter constructor will gain from main method type of report as metadata and then it will
-    launch procedure of printing for asked type*/
+    public static void print(StringBuilder strToPrint) {
+        if (strToPrint == null)
+            System.out.println("There are no such type of report");
+        else
+            System.out.println(strToPrint);
+    }
 }

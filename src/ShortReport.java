@@ -5,27 +5,16 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class ShortReport {
-    //This is subclass of the main method which will do all work related to printing short report
-    static void generateShortReport() throws IllegalArgumentException, IOException {
-        //Starting accessing file with student data via try with resources
-        System.out.println("Please paste a path to the list of students data");
-        Scanner scanner = new Scanner(System.in);
-        String pathToData = scanner.nextLine();
+    //This is our StringBuilder which would be given to printer
+    StringBuilder generatedReport = new StringBuilder();
 
-        //Gaining date of estimate finish from InputStream
-        System.out.println("""
-                For which date you want to see results?
-                Please input in format:
-                d Month year - Day of week - Time in format hh:mm""");
-        String dayOfReport = scanner.nextLine();
-        System.out.printf("Short(Generating report date: %s ):%n", dayOfReport);
-
-        //Parsing in the way we have input from file
-        ArrayList<StudentProfile> studentsListParsed = ParserForProfile.parseFromFile(pathToData);
-
+    //This is subclass which will generate the StringBuilder for Printer to print
+    public StringBuilder generateShortReport(ArrayList<StudentProfile> profilesList) throws IllegalArgumentException {
+        //Throwing in report header to StringBuilder
+        generatedReport.append("Short(Generating report date: ").append(profilesList.get(0).dayOfReport).append("):");
 
         //Writing to terminal report for each student
-        for (StudentProfile studentData : studentsListParsed) {
+        for (StudentProfile studentData : profilesList) {
             //Those lines would write name of student and his curriculum to stringBuilder
             StringBuilder oneStudentReport = new StringBuilder();
             oneStudentReport.append(System.lineSeparator()).append(studentData.name);
@@ -33,7 +22,7 @@ public class ShortReport {
 
                 /*There are counting to realize are courses finished or not
                 givenHours are hours between date of learning start and inputted from terminal date */
-            int givenHours = HourCounter.HoursBetween(studentData.dateOfLearningStart, dayOfReport);
+            int givenHours = HourCounter.HoursBetween(studentData.dateOfLearningStart, studentData.dayOfReport);
             int neededHours = 0;
             for (Course course : studentData.courses) {
                 neededHours += course.duration;
@@ -58,8 +47,8 @@ public class ShortReport {
                         append(difHours).append(" hours are left until the end.");
                 else oneStudentReport.append(difHours).append(" are left until the end.");
             }
-            System.out.println(oneStudentReport);
+            generatedReport.append(oneStudentReport);
         }
-
+        return generatedReport;
     }
 }

@@ -5,11 +5,12 @@ public class StudentProfile {
     String name;
     String curriculum;
     String dateOfLearningStart;
+    String dayOfReport;
     ArrayList<Course> courses = new ArrayList<>();
 
-    public StudentProfile(ArrayList<String> data) throws IllegalArgumentException {
+    public StudentProfile(ArrayList<String> data, String dayOfReport) throws IllegalArgumentException {
         //Parsing values from strings into corresponding fields
-
+        this.dayOfReport = dayOfReport;
         try {
             String[] probablyName = data.get(0).split(": ");
             if (Objects.equals(probablyName[0], "STUDENT"))
