@@ -1,4 +1,4 @@
-public class Course{
+public class Course {
     String name;
     int duration;
     public Course(String courseString) throws IllegalArgumentException {

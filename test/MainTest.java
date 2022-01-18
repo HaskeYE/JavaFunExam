@@ -1,11 +1,9 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -51,7 +49,7 @@ public class MainTest {
                         Please input in format:
                         d Month year - Day of week - Time in format hh:mm
                         Please paste path to the list of student data
-                        Please write down type of report you want to see in format: 
+                        Please write down type of report you want to see in format:\040
                          1 - if you want short one
                          2 - if you want full one
                         Short(Generating report date: 2 July 2020 - Thursday - 16:00):
@@ -110,4 +108,48 @@ public class MainTest {
                         """,
                 getOutput());
     }
+
+    @Test
+    public void testFileNotFound() {
+        final String testString = "2 July 2020 - Thursday - 16:00\nresources/nosuchfile.txt\n2";
+        provideInput(testString);
+
+        Main.main(new String[0]);
+        assertEquals("""
+                Hello, i will help you to get results for each student courses but for which date you want to see results?
+                Please input in format:
+                d Month year - Day of week - Time in format hh:mm
+                Please paste path to the list of student data
+                resources/nosuchfile.txt (No such file or directory)
+                Exception occurred - stopping work
+                                
+                Program finished its work
+                Thank you for using it
+                """, getOutput());
+    }
+
+    @Test
+    public void testIllegalInput() {
+        final String testString = "2 July 2020 - rgegrge - 16:00\nresources/file1.txt\n2";
+        provideInput(testString);
+
+        Main.main(new String[0]);
+        assertEquals("""
+                Hello, i will help you to get results for each student courses but for which date you want to see results?
+                Please input in format:
+                d Month year - Day of week - Time in format hh:mm
+                Please paste path to the list of student data
+                Please write down type of report you want to see in format:
+                 1 - if you want short one
+                 2 - if you want full one
+                Illegal weekday of start input
+                Error in type of report definition
+                Exception occurred - stopping work
+                               
+                Program finished its work
+                Thank you for using it
+                """, getOutput());
+    }
+
 }
+
