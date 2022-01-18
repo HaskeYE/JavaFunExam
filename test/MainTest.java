@@ -22,11 +22,6 @@ public class MainTest {
         System.setOut(new PrintStream(testOut));
     }
 
-    @After
-    public void restoreSystemInputOutput() {
-        System.setIn(systemIn);
-        System.setOut(systemOut);
-    }
 
     private void provideInput(String data) {
         ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
@@ -151,5 +146,10 @@ public class MainTest {
                 """, getOutput());
     }
 
+    @After
+    public void restoreSystemInputOutput() {
+        System.setIn(systemIn);
+        System.setOut(systemOut);
+    }
 }
 
