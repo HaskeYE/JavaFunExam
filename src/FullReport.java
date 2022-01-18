@@ -9,7 +9,8 @@ public class FullReport implements ReportType{
     StringBuilder generatedReport = new StringBuilder();
 
     //This is subclass which will generate the StringBuilder for Printer to print
-     public StringBuilder generateFullReport(ArrayList<StudentProfile> profilesList)
+    @Override
+    public StringBuilder generateReport(ArrayList<StudentProfile> profilesList)
              throws IllegalArgumentException {
          //Throwing in report header to StringBuilder
          generatedReport.append("Full(Generating report date: ").append(profilesList.get(0).dayOfReport).append("):");
