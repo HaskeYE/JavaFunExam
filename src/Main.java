@@ -1,6 +1,6 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -8,6 +8,11 @@ public class Main {
     Test data ahead
     18 January 2021 - Tuesday - 15:00 resources/file1.txt
     2 July 2020 - Thursday - 16:00*/
+    public static void test(String[] args){
+        Scanner sc = new Scanner(System.in);
+        if (Objects.equals(sc.nextLine(), "go"))
+            System.out.println("please");
+    }
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -29,7 +34,7 @@ public class Main {
 
             //Asking user about type of report
             System.out.println("""
-                Please write down type of report you want to see if format:\s
+                Please write down type of report you want to see in format:
                  1 - if you want short one
                  2 - if you want full one""");
             int type = Integer.parseInt(scanner.next());

@@ -1,8 +1,4 @@
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
 
 public class ShortReport implements ReportType {
     //This is our StringBuilder which would be given to printer
