@@ -46,7 +46,7 @@ public class MainTest {
                         Please input in format:
                         d Month year - Day of week - Time in format hh:mm
                         Please paste path to the list of student data
-                        Please write down type of report you want to see in format:\040
+                        Please write down type of report you want to see in format: 
                          1 - if you want short one
                          2 - if you want full one
                         Short(Generating report date: 2 July 2020 - Thursday - 16:00):
