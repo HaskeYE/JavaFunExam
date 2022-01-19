@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+//Class with only static method to parse input file to ArrayList of StudentData to give it to the other parts of program
 public class ParserForProfile {
+
     public static ArrayList<StudentProfile> parseFromFile(String pathToData, String dayOfReport) throws IOException {
         ArrayList<StudentProfile> studentsListParsed = new ArrayList<>();
         try (FileReader reader = new FileReader(pathToData)) {

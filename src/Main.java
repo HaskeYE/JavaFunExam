@@ -8,11 +8,7 @@ public class Main {
     Test data ahead
     18 January 2021 - Tuesday - 15:00 resources/file1.txt
     2 July 2020 - Thursday - 16:00*/
-    public static void test(String[] args){
-        Scanner sc = new Scanner(System.in);
-        if (Objects.equals(sc.nextLine(), "go"))
-            System.out.println("please");
-    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -38,10 +34,11 @@ public class Main {
                  1 - if you want short one
                  2 - if you want full one""");
             int type = Integer.parseInt(scanner.next());
-            //Going into internal submethods varying by type of report
 
+            //Launching reportTypeFactory to print result relying on the type of report
             ReportTypeFactory reportTypeFactory = new ReportTypeFactory();
             Reporter.print(reportTypeFactory.provide(type, studentsListParsed));
+
         } catch (IOException | IllegalArgumentException e) {
             if (e.getClass() == IllegalArgumentException.class)
                 System.out.println("Error in type of report definition");

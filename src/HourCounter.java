@@ -1,16 +1,17 @@
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-// Класс со статик методом, который будет использоваться в мейн методе,
-// чтобы вычислять различные промежутки времени в часах, учитывая рабочие и нерабочие дни недели и рабочее время
+
+//Class with only static method to count difference in workdays between two dates in String
 class HourCounter {
      static int HoursBetween(String startDate, String finishDate) throws IllegalArgumentException {
-        int out = 0;
+        int out;
         try {
             //Granting correctness of input date of start and putting into shape for going through program
             if (startDate.trim().split(" - ").length != 2)
                 throw new IllegalArgumentException("Wrong date format in input file");
             String dateOfStart = startDate.trim().split(" - ")[0];
             String weekDayOfStart = startDate.trim().split(" - ")[1];
+
             //Rounding start day to the start of the next week to achieve ability to count days till
             //start of the final week using methods of LocalDate and then separate weekends from this value easily
             LocalDate start = DateStringToCommon.DateStringToCommon(dateOfStart).
@@ -33,6 +34,7 @@ class HourCounter {
                     throw new IllegalArgumentException("Illegal input time format");
                 }
             }
+
             //counting difference between our dates relying on day of week
             LocalDate finish = DateStringToCommon.DateStringToCommon(dateOfFinish).
                     minusDays(7 - HourCounter.plusToRoundUp(weekDayOfFinish));
@@ -55,26 +57,13 @@ class HourCounter {
 
     //function to round up to the start of the next week
     private static int plusToRoundUp(String weekDayOfStart) throws IllegalArgumentException {
-        int out = 0;
-        switch (weekDayOfStart) {
-            case "Monday":
-                out = 7;
-                break;
-            case "Tuesday":
-                out = 6;
-                break;
-            case "Wednesday":
-                out = 5;
-                break;
-            case "Thursday":
-                out = 4;
-                break;
-            case "Friday":
-                out = 3;
-                break;
-            default:
-                throw new IllegalArgumentException("Illegal weekday of start input");
-        }
-        return out;
+        return switch (weekDayOfStart) {
+            case "Monday" -> 7;
+            case "Tuesday" -> 6;
+            case "Wednesday" -> 5;
+            case "Thursday" -> 4;
+            case "Friday" -> 3;
+            default -> throw new IllegalArgumentException("Illegal weekday of start input");
+        };
     }
 }

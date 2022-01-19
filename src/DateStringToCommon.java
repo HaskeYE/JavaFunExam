@@ -1,14 +1,16 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-
+//Class with one static method which will parse raw String date into LocalDate
 class DateStringToCommon {
     //String input of Date to common for program type of data
     public static LocalDate DateStringToCommon(String str) throws IllegalArgumentException{
         LocalDate date;
         try {
+            //Checking correctance of input date at all
             String[] ourDate = str.trim().split(" ");
             if (ourDate.length != 3) throw new IllegalArgumentException("Illegal date format");
+            //Casting month into appropriate form
             switch (ourDate[1]) {
                 case "January" -> ourDate[1] = "1";
                 case "February" -> ourDate[1] = "2";

@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 
+//Class to write up date bigger by hoursToAdd hours than startData
 public class HourAdder {
 
     static String hourAdder(String startDate, int hoursToAdd) throws IllegalArgumentException {
@@ -8,6 +9,7 @@ public class HourAdder {
         int leftHours = hoursToAdd;
         if (startDate.split(" - ").length == 3) {
             while (leftHours >= 8) {
+                //Switch to appropriate way of iterating through days of week counting weekends
                 switch (nowIs.getDayOfWeek()) {
                     case SATURDAY, SUNDAY -> nowIs = nowIs.plusDays(1);
                     default -> {
@@ -34,6 +36,8 @@ public class HourAdder {
                 localDateMonthToMonth(nowIs.getMonth().toString()), nowIs.getYear(),
                 localDateWeekDayToString(nowIs.getDayOfWeek().toString()), startDateSplit[2]);
     }
+
+    //Method to cast day of week from LocalData to String common format
     private static String localDateWeekDayToString(String fromGetDayOfWeek) throws IllegalArgumentException {
         String stringDayOfWeek;
         switch (fromGetDayOfWeek) {
@@ -48,6 +52,8 @@ public class HourAdder {
         }
         return stringDayOfWeek;
     }
+
+    //Method to cast month from LocalData to String common format
     private static String localDateMonthToMonth(String fromGetDayOfWeek) throws IllegalArgumentException {
         String stringDayOfWeek;
         switch (fromGetDayOfWeek) {
