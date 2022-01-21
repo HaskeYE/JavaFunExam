@@ -1,16 +1,17 @@
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
 
-public class FullReport implements ReportType{
+public class FullReport implements IReportType {
     //This is our StringBuilder which would be given to printer
     StringBuilder generatedReport = new StringBuilder();
+    ArrayList<StudentProfile> profilesList;
+
+    public FullReport(ArrayList<StudentProfile> profilesList) {
+        this.profilesList = profilesList;
+    }
 
     //This is subclass which will generate the StringBuilder for Printer to print
     @Override
-    public StringBuilder generateReport(ArrayList<StudentProfile> profilesList)
+    public StringBuilder generateReport()
              throws IllegalArgumentException {
          //Throwing in report header to StringBuilder
          generatedReport.append("Full(Generating report date: ").append(profilesList.get(0).dayOfReport).append("):");

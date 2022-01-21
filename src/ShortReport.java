@@ -1,12 +1,18 @@
 import java.util.ArrayList;
 
-public class ShortReport implements ReportType {
+public class ShortReport implements IReportType {
     //This is our StringBuilder which would be given to printer
     StringBuilder generatedReport = new StringBuilder();
+    ArrayList<StudentProfile> profilesList;
+
+    public ShortReport(ArrayList<StudentProfile> profilesList) {
+        this.profilesList = profilesList;
+    }
+
 
     //This is subclass which will generate the StringBuilder for Printer to print
     @Override
-    public StringBuilder generateReport(ArrayList<StudentProfile> profilesList) throws IllegalArgumentException {
+    public StringBuilder generateReport() throws IllegalArgumentException {
         //Throwing in report header to StringBuilder
         generatedReport.append("Short(Generating report date: ").append(profilesList.get(0).dayOfReport).append("):");
 
