@@ -76,7 +76,7 @@ public class FullReport implements IReportType {
                      int difHours = difference % 8;
                      if (difDays != 0) oneStudentReport.append(difDays).append(" working days ").
                              append(difHours).append(" hours are left until the end.");
-                     else oneStudentReport.append(difHours).append(" are left until the end.");
+                     else oneStudentReport.append(difHours).append(" hours are left until the end.");
                  }
                  //Decrementing givenHours by value of hours of each course
                  givenHours -= neededHours;

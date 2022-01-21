@@ -16,7 +16,10 @@ public class StudentProfile {
     //Constructor to fill up all data from one input
     public StudentProfile(ArrayList<String> dataOfStudentsRaw, String dayOfReport) throws IllegalArgumentException {
         //Parsing values from strings into corresponding fields
-        this.dayOfReport = dayOfReport;
+        if (dayOfReport.split(" - ").length == 3)
+            this.dayOfReport = dayOfReport;
+        else
+            throw new IllegalArgumentException();
 
         try {
             //Parsing string with name of student definition
