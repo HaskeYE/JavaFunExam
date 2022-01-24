@@ -9,7 +9,6 @@ public class StudentProfile {
     ArrayList<Course> courses = new ArrayList<>();
 
     //Two constructors here - empty one for tests
-
     public StudentProfile() {
     }
 

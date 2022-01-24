@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ShortReport implements IReportType {
+ class ShortReport implements IReportType {
     //This is our StringBuilder which would be given to printer
     StringBuilder generatedReport = new StringBuilder();
     ArrayList<StudentProfile> profilesList;
